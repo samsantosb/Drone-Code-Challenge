@@ -35,17 +35,3 @@ const dispatch = (drone, location) => {
     return trip()
 }
 dispatch(bestDrone, data.locationsMatrix)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
