@@ -1,0 +1,12 @@
+{
+  "name": "desafiojs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "inputReader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "output": "algorithm.js >> output.txt"
+  },
+  "author": "",
+  "license": "ISC"
+}

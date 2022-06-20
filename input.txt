@@ -1,0 +1,24 @@
+Insert the drones using the format -> *"droneA"-"weight"
+
+DRONE LIST START
+*droneA-200
+*droneB-100
+*droneC-250
+*droneD-50
+*droneE-190
+*droneF-210
+*droneG-300
+DRONE LIST END
+
+Insert the locations using the format -> *"locationA"-"weight"
+
+LOCATION LIST START
+*locationA-80
+*locationB-90
+*locationC-100
+*locationD-110
+*locationE-100
+*locationF-200
+*locationG-190
+*locationH-110
+LOCATION LIST END
