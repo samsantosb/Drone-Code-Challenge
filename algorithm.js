@@ -1,37 +1,43 @@
-const data = require('./data.js');
+const { drones, locations } = require('./data.js');
 
-const matrixData = (matrix, i) => [...matrix.map(element => element[i])]
-const bestDrone = data.dronesMatrix[0];
-const listofDrOnes = matrixData(data.dronesMatrix, 0)
+const keyOrValues = (matrix, i) => [...matrix.map(ele => ele[i])] // 0 = key, 1 = value
+const bestDrone = drones[0];
+const listofDrOnes = keyOrValues(drones, 0)
 
-const dispatch = (drone, location) => {
-    const otherDrones = listofDrOnes.filter(element => element !== drone[0]);
-    const actualLocation = matrixData(location, 0)
-    let numberOfDispatches = 0;
+const dispatch = (drone, locations) => {
+    const nextStop = keyOrValues(locations, 0)
+    let tripNumber = 0;
+    let locationCargo = keyOrValues(locations, 1);
 
     const trip = () => {
-        if (numberOfDispatches === 0) {
-            for (element of otherDrones) console.log(`[${element}]`)
-            console.log(`[${drone[0]}] - Is picked to the task!`)
+        if (tripNumber === 0) {
+            console.log(`[${listofDrOnes.map(drone => drone).sort()}]`)
+            console.log(`[${drone[0]}] - Weight Capacity: ${drone[1]} - picked to the task!`)
         }
+        console.log('fueling up!')
 
         let droneCapacity = drone[1];
-        let locationValue = matrixData(location, 1);
 
-        for (let i in locationValue) {
-            if (droneCapacity >= locationValue[i] && droneCapacity >= 0) {
-                console.log(`[${actualLocation[i]}]`)
-                droneCapacity -= locationValue[i];
+        for (let i in locationCargo) {
+            if (droneCapacity >= locationCargo[i] && droneCapacity > 0) {
+                console.log(`[${nextStop[i]}] - Package Weight: ${locationCargo[i]}`)
+                droneCapacity -= locationCargo[i];
 
-                delete location[i];
-                delete locationValue[i]
+                delete locations[i];
+                delete locationCargo[i];
+            }
+            if (droneCapacity <= locationCargo[i] && droneCapacity > 0) {
+                console.log((`[${nextStop[i]}] - Package Weight: ${locationCargo[i]}`))
+                locationCargo[i] -= droneCapacity;
+                droneCapacity = 0;
             }
         }
-        numberOfDispatches++
-        console.log(`Trip#${numberOfDispatches}`)
 
-        location.filter(element => element).length && trip(drone, location)
+        tripNumber++
+        console.log(`Trip number ${tripNumber} has ended!`)
+
+        locations.filter(loc => loc).length && trip(drone, locations)
     }
     return trip()
 }
-dispatch(bestDrone, data.locationsMatrix)
+dispatch(bestDrone, locations)
